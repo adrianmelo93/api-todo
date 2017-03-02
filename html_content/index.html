@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Datos</title>
+</head>
+
+<body>
+    <div id="contenedor">
+        <label for="description">Description</label>
+        <input id="descrip" type="text" value="">
+        <label for="Status">Status</label>
+        <input id="stat" type="text" value="">
+        <button id="submit" type="button" >Submit</button>
+        <div id="alltodos">
+
+        </div>
+    </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+   <script>
+        $('#submit').click(function() {
+            $.ajax({
+                url: "http://localhost:8880/todos",
+                method: 'POST',
+                success: function() {
+                    console.log("yous data is been post")
+                },
+                data: {
+                    description: $('#descrip').val(),
+                    status: $('#stat').val()
+                }
+
+            });
+        });
+
+$('#submit').click(function(){
+  $.ajax({
+    url: "http://localhost:8880/todos",
+    method: 'GET',
+    success: function(gt){
+      $('#alltodos').html("")
+      gt.forEach(function(list){
+        $('#alltodos').append(`<tr><td>${list.description}</td>, <td>${list.status}</td></tr>`)
+      });
+},
+});
+});
+
+
+
+
+    </script>
+</body>
+
+</html>
